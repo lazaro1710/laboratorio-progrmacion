@@ -1,0 +1,78 @@
+
+int[,] escuela = new int[2, 3]; 
+int alumnos = 0;
+
+
+static int ConsoleIntTryParse(string text)
+{
+    int output = 0;
+    bool flag = false;
+    string? input;
+    while (flag == false)
+    {
+        Console.WriteLine($"Por favor, ingrese Cantidad de {text}");
+        input = Console.ReadLine();
+
+        if (int.TryParse(input, out int num))
+        {
+            output = num;
+            flag = true;
+            if (output < 0)
+            {
+                Console.WriteLine("Ingrese un valor válido (positivo)");
+                flag = false;
+            }
+        }
+        else
+        {
+            Console.WriteLine("Ingrese un valor numérico válido");
+            flag = false;
+        }
+    }
+    return output;
+}
+
+
+for (int piso = 0; piso < 2; piso++)
+{
+    for (int lab = 0; lab < 3; lab++)
+    {
+        Console.WriteLine($" Piso {piso}, Laboratorio {lab} ");
+        alumnos = ConsoleIntTryParse("Alumnos");
+        escuela[piso, lab] = alumnos;
+    }
+}
+
+
+Console.WriteLine("¿Qué piso quiere consultar?");
+int p = ConsoleIntTryParse("Piso");
+Console.WriteLine("¿Qué laboratorio?");
+int l = ConsoleIntTryParse("Laboratorio");
+
+
+if (p >= 0)
+{
+    if (p < 2) // Validamos piso
+    {
+        if (l >= 0)
+        {
+            if (l < 3) // Validamos laboratorio
+            {
+                Console.WriteLine($"En el Piso {p}, Lab {l} hay: " + escuela[p, l]);
+            }
+            else { Console.WriteLine("El laboratorio no existe."); }
+        }
+        else { Console.WriteLine("Valor no permitido."); }
+    }
+    else { Console.WriteLine("El piso no existe."); }
+}
+else { Console.WriteLine("Valor no permitido."); }
+
+
+int totalPiso0 = 0;
+for (int lab = 0; lab < 3; lab++)
+{
+    totalPiso0 = totalPiso0 + escuela[0, lab];
+}
+
+Console.WriteLine("Total de alumnos en el Piso 0: " + totalPiso0);
