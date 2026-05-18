@@ -1,0 +1,38 @@
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] escuela = {
+            { 15, 20, 10 },
+            { 5, 25, 30 },
+            { 12, 12, 12 }
+        };
+
+        int totalPisos = escuela.GetLength(0);
+        int totalLabs = escuela.GetLength(1);
+
+        string[] listaDeStrings = new string[totalPisos * totalLabs];
+        int indice = 0;
+
+        for (int piso = 0; piso < totalPisos; piso++)
+        {
+            for (int lab = 0; lab < totalLabs; lab++)
+            {
+                listaDeStrings[indice] = $"Piso {piso}, Lab {lab}: {escuela[piso, lab]} alumnos";
+                indice++;
+            }
+        }
+
+        File.WriteAllLines("reporte_escuela.txt", listaDeStrings);
+
+        Console.WriteLine("Datos guardados con éxito en el disco");
+    }
+}
+
+
+
+
+
