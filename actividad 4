@@ -15,7 +15,7 @@ class Program
         if (opcionCarga == "N")
         {
             // Carga de datos precargados automáticamente
-            Console.WriteLine("\n--- Cargando datos precargados del sistema ---\n");
+            Console.WriteLine(" Cargando datos precargados del sistema ");
 
             alumnos[0, 0] = 15; tieneInternet[0, 0] = true;
             alumnos[0, 1] = 25; tieneInternet[0, 1] = false; 
