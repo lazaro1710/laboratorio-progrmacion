@@ -1,0 +1,138 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+      
+        int[,] alumnos = new int[2, 3];
+        bool[,] tieneInternet = new bool[2, 3];
+
+       
+        Console.Write("¿Desea cargar los datos a mano? (S/N): ");
+        string opcionCarga = Console.ReadLine().Trim().ToUpper();
+
+        if (opcionCarga == "N")
+        {
+            // Carga de datos precargados automáticamente
+            Console.WriteLine("\n--- Cargando datos precargados del sistema ---\n");
+
+            alumnos[0, 0] = 15; tieneInternet[0, 0] = true;
+            alumnos[0, 1] = 25; tieneInternet[0, 1] = false; 
+            alumnos[0, 2] = 10; tieneInternet[0, 2] = true;
+
+            alumnos[1, 0] = 30; tieneInternet[1, 0] = false; 
+            alumnos[1, 1] = 18; tieneInternet[1, 1] = true;
+            alumnos[1, 2] = 5; tieneInternet[1, 2] = false;
+        }
+        else
+        {
+            
+            Console.WriteLine(" Inicio de carga manual de laboratorios ");
+            for (int f = 0; f < 2; f++)
+            {
+                for (int c = 0; c < 3; c++)
+                {
+                    int cantidadAlumnos = -1;
+                    while (cantidadAlumnos < 0)
+                    {
+                        Console.Write($"Ingrese cantidad de alumnos para Lab [{f},{c}]: ");
+                        if (!int.TryParse(Console.ReadLine(), out cantidadAlumnos) || cantidadAlumnos < 0)
+                        {
+                            Console.WriteLine("Error: Ingrese un número entero válido y mayor o igual a 0.");
+                            cantidadAlumnos = -1;
+                        }
+                    }
+                    alumnos[f, c] = cantidadAlumnos;
+
+                  
+                    bool flagInternet = false;
+                    while (!flagInternet)
+                    {
+                        Console.Write($"¿Tiene internet el Lab [{f},{c}]? (S/N): ");
+                        string respuesta = Console.ReadLine().Trim().ToUpper();
+
+                        if (respuesta == "S")
+                        {
+                            tieneInternet[f, c] = true;
+                            flagInternet = true;
+                        }
+                        else if (respuesta == "N")
+                        {
+                            tieneInternet[f, c] = false;
+                            flagInternet = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: Entrada inválida. Debe responder estrictamente con 'S' o 'N'.");
+                        }
+                    }
+                    Console.WriteLine(); 
+                }
+            }
+        }
+
+        
+        int totalLabsConInternet = 0;
+        int sumaAlumnosConInternet = 0;
+
+        for (int f = 0; f < 2; f++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                if (tieneInternet[f, c])
+                {
+                    totalLabsConInternet++;
+                    sumaAlumnosConInternet += alumnos[f, c];
+                }
+            }
+        }
+
+        Console.WriteLine(" Reporte de Infraestructura ");
+        Console.WriteLine($"¿Cuántos laboratorios en total tienen internet?: {totalLabsConInternet}");
+
+        
+        if (totalLabsConInternet > 0)
+        {
+            double promedio = (double)sumaAlumnosConInternet / totalLabsConInternet;
+            Console.WriteLine($"Promedio de alumnos en laboratorios con internet: {promedio:F2}");
+        }
+        else
+        {
+            Console.WriteLine("Promedio de alumnos en laboratorios con internet: 0 (No hay laboratorios con internet).");
+        }
+
+        
+        Console.WriteLine(" Reporte de Alerta (Prioridad para el Director) ");
+        bool hayAlertas = false;
+
+        for (int f = 0; f < 2; f++)
+        {
+            for (int c = 0; c < 3; c++)
+            {
+                
+                if (alumnos[f, c] > 20 && !tieneInternet[f, c])
+                {
+                    Console.WriteLine($"¡ALERTA! -> Lab [{f},{c}] tiene {alumnos[f, c]} alumnos y NO posee conectividad.");
+                    hayAlertas = true;
+                }
+            }
+        }
+
+        if (!hayAlertas)
+        {
+            Console.WriteLine("No se encontraron laboratorios en estado crítico.");
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
