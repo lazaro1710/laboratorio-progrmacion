@@ -1,0 +1,110 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,,] nave1 = new int[2, 3, 4];
+        int[,,] nave2 = new int[2, 3, 4];
+
+        Console.WriteLine("CONFIGURACION JUGADOR 1");
+        CargarNave(nave1);
+
+        Console.WriteLine("\nCONFIGURACION JUGADOR 2");
+        CargarNave(nave2);
+    }
+    static void CargarNave(int[,,] nave)
+    {
+        int total = 20;
+        int cargados = 0;
+
+        while (cargados < total)
+        {
+            
+            int habitacion;
+            int capsula;
+            int ala;
+            int cantidad = 0;
+
+            
+            while (true)
+            {
+                Console.Write("Elegir ala (1 o 2): ");
+                ala = LeerEntero();
+
+                if (ala >= 1 && ala <= 2)
+                {
+                    ala--; 
+                    break;
+                }
+                Console.WriteLine("Error: elegí 1 o 2.");
+            }
+
+           
+
+            while (true)
+            {
+                Console.Write("Elegir cápsula (1 a 3): ");
+                capsula = LeerEntero();
+
+                if (capsula >= 1 && capsula <= 3)
+                {
+                    capsula--;
+                    break;
+                }
+                Console.WriteLine("Error: elegí entre 1 y 3.");
+            }
+
+            
+
+            while (true)
+            {
+                Console.Write("Elegir habitación (1 a 4): ");
+                habitacion = LeerEntero();
+
+                if (habitacion >= 1 && habitacion <= 4)
+                {
+                    habitacion--;
+                    break;
+                }
+                Console.WriteLine("Error: elegí entre 1 y 4.");
+            }
+
+            Console.WriteLine("jugadores restantes: " + (total - cargados));
+            Console.Write("Cantidad de tripulantes a agregar: ");
+            cantidad = LeerEntero();
+
+            if (cantidad <= 0 || cargados + cantidad > total)
+            {
+                Console.WriteLine("Cantidad inválida.");
+                continue;
+            }
+
+
+            if (cantidad <= 0 || cargados + cantidad > total)
+            {
+
+                Console.WriteLine("supera el total de jugadores.");
+
+            }
+
+            
+
+            nave[ala, capsula, habitacion] += cantidad;
+            cargados += cantidad;
+
+            Console.WriteLine("Carga realizada.");
+        }
+
+        Console.WriteLine("\n¡Nave completa!");
+    }
+
+    static int LeerEntero()
+    {
+        int num;
+        while (!int.TryParse(Console.ReadLine(), out num))
+        {
+            Console.Write("Error, ingresá un número: ");
+        }
+        return num;
+    }
