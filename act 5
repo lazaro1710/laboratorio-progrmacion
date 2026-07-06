@@ -10,7 +10,7 @@ class Program
         Console.WriteLine("CONFIGURACION JUGADOR 1");
         CargarNave(nave1);
 
-        Console.WriteLine("\nCONFIGURACION JUGADOR 2");
+        Console.WriteLine("CONFIGURACION JUGADOR 2");
         CargarNave(nave2);
     }
     static void CargarNave(int[,,] nave)
@@ -96,7 +96,7 @@ class Program
             Console.WriteLine("Carga realizada.");
         }
 
-        Console.WriteLine("\n¡Nave completa!");
+        Console.WriteLine("¡Nave completa!");
     }
 
     static int LeerEntero()
